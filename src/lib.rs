@@ -66,9 +66,14 @@ fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     }
 }
 
+struct QubitState {
+    id: String,
+    amplitude_real: f64,
+    amplitude_imaginary: f64,
+}
 
 struct ExecutionState {
-    states: Vec<(BigUint, Complex64)>,
+    states: Vec<QubitState>,
     qubit_count: usize,
     messages: Vec<String>,
 }
@@ -90,7 +95,13 @@ impl Receiver for ExecutionState {
         qubit_count: usize,
     ) -> Result<(), output::Error> {
         self.qubit_count = qubit_count;
-        self.states = states;
+        self.states = states.iter().map(|(qubit, amplitude)| {
+            QubitState {
+                id: output::format_state_id(&qubit, qubit_count),
+                amplitude_real: amplitude.re,
+                amplitude_imaginary: amplitude.im,
+            }
+        }).collect();
 
         Ok(())
     }
@@ -114,4 +125,7 @@ fn test_run() {
 
     assert_eq!(result.messages.len(), 1);
     assert_eq!(result.messages[0], "Hello");
+
+    assert_eq!(result.qubit_count, 0);
+    assert_eq!(result.states.len(), 0);
 }

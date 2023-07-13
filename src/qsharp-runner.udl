@@ -1,0 +1,22 @@
+namespace qsharp_runner {
+
+    [Throws=QrError]
+    ExecutionState run_qs([ByRef]string source);
+};
+
+[Error]
+interface QsError {
+    ErrorMessage(string error_text);
+};
+
+dictionary ExecutionState {
+    sequence<QubitState> states;
+    u64 qubit_count;
+    sequence<string> messages;
+};
+
+dictionary QubitState {
+    string id;
+    f64 amplitude_real;
+    f64 amplitude_imaginary;
+};

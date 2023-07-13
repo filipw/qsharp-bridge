@@ -1,2 +1,5 @@
 /target
 /Cargo.lock
+
+[Bb]in/
+[Oo]bj/
