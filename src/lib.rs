@@ -14,28 +14,6 @@ pub enum QsError {
     ErrorMessage { error_text: String }
 }
 
-fn compile_qs(source: &str) -> () {
-    let store = PackageStore::new(qsc::compile::core());
-    let dependencies: Vec<PackageId> = Vec::new();
-
-    let sources = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
-    let (unit, errors) = compile(&store, &dependencies, sources);
-
-    if errors.is_empty() {
-        ()
-    } else {
-        for error in errors {
-            if let Some(source) = unit.sources.find_by_diagnostic(&error) {
-                eprintln!("{:?}", source.clone());
-            } else {
-                eprintln!("{:?}", error);
-            }
-        }
-
-        ()
-    }
-}
-
 pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
 
@@ -114,18 +92,24 @@ impl Receiver for ExecutionState {
 }
 
 #[test]
-fn test_run() {
-    let source = "
-    namespace MyQuantumApp {
-        @EntryPoint()
-        operation Main() : Unit {
-            Message(\"Hello\");
-        }
-    }";
-    let result = run_qs(source).unwrap();
+fn test_hello() {
+    let source = std::fs::read_to_string("tests/assets/hello.qs").unwrap();
+    let result = run_qs(&source).unwrap();
 
     assert_eq!(result.messages.len(), 1);
     assert_eq!(result.messages[0], "Hello");
+
+    assert_eq!(result.qubit_count, 0);
+    assert_eq!(result.states.len(), 0);
+}
+
+#[test]
+fn test_teleportation() {
+    let source = std::fs::read_to_string("tests/assets/teleportation.qs").unwrap();
+    let result = run_qs(&source).unwrap();
+
+    assert_eq!(result.messages.len(), 1);
+    assert_eq!(result.messages[0], "Teleported: true");
 
     assert_eq!(result.qubit_count, 0);
     assert_eq!(result.states.len(), 0);
