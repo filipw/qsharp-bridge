@@ -9,7 +9,7 @@ fn main() {
         None, 
         vec!["swift"], 
         Some(out_dir.into()), 
-        None, 
+        None,
         true).unwrap();
 
     Command::new("uniffi-bindgen-cs").arg("--out-dir").arg(out_dir).arg(udl_file).output().expect("Failed when generating C# bindings");

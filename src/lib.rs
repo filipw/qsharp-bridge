@@ -1,4 +1,5 @@
-use std::process::ExitCode;
+uniffi::include_scaffolding!("qsharp-runner");
+
 use thiserror::Error;
 use num_bigint::BigUint;
 use num_complex::Complex64;
@@ -35,7 +36,7 @@ fn compile_qs(source: &str) -> () {
     }
 }
 
-fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
+pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
 
     let context = match stateless::Context::new(true, source_map) {
@@ -66,15 +67,15 @@ fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     }
 }
 
-struct QubitState {
+pub struct QubitState {
     id: String,
     amplitude_real: f64,
     amplitude_imaginary: f64,
 }
 
-struct ExecutionState {
+pub struct ExecutionState {
     states: Vec<QubitState>,
-    qubit_count: usize,
+    qubit_count: u64,
     messages: Vec<String>,
 }
 
@@ -94,7 +95,7 @@ impl Receiver for ExecutionState {
         states: Vec<(BigUint, Complex64)>,
         qubit_count: usize,
     ) -> Result<(), output::Error> {
-        self.qubit_count = qubit_count;
+        self.qubit_count = qubit_count as u64;
         self.states = states.iter().map(|(qubit, amplitude)| {
             QubitState {
                 id: output::format_state_id(&qubit, qubit_count),

@@ -6,17 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NativeOutputPath>../target/$(Configuration.ToLowerInvariant())/</NativeOutputPath>
+    <NativeOutputPath>../../target/$(Configuration.ToLowerInvariant())/</NativeOutputPath>
   </PropertyGroup>
 
 <ItemGroup>
-    <None Condition="$([MSBuild]::IsOsPlatform('MacOS'))" Include="$(NativeOutputPath)librust_lib.dylib" CopyToOutputDirectory="PreserveNewest" />
-    <None Condition="$([MSBuild]::IsOsPlatform('Linux'))" Include="$(NativeOutputPath)librust_lib.so" CopyToOutputDirectory="PreserveNewest" />
-    <None Condition="$([MSBuild]::IsOsPlatform('Windows'))" Include="$(NativeOutputPath)rust_lib.dll" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="$([MSBuild]::IsOsPlatform('MacOS'))" Include="$(NativeOutputPath)libqsharp_runner.dylib" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="$([MSBuild]::IsOsPlatform('Linux'))" Include="$(NativeOutputPath)libqsharp_runner.so" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="$([MSBuild]::IsOsPlatform('Windows'))" Include="$(NativeOutputPath)qsharp_runner.dll" CopyToOutputDirectory="PreserveNewest" />
 </ItemGroup>
 
 <ItemGroup>
-  <Compile Include="..\bindings\qsharp_runner.cs" Link="qsharp_runner.cs" />
+  <Compile Include="..\..\bindings\qsharp_runner.cs" Link="qsharp_runner.cs" />
 </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 namespace qsharp_runner {
 
-    [Throws=QrError]
+    [Throws=QsError]
     ExecutionState run_qs([ByRef]string source);
 };
 
