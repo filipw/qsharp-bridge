@@ -35,7 +35,7 @@ fn compile_qs(source: &str) -> () {
     }
 }
 
-fn run_qs(source: &str) -> Result<(), QsError> {
+fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
 
     let context = match stateless::Context::new(true, source_map) {
@@ -44,17 +44,15 @@ fn run_qs(source: &str) -> Result<(), QsError> {
             for error in errors {
                 eprintln!("error: {:?}", error);
             }
-            return Ok(());
+            return Err(QsError::ErrorMessage { error_text: "context error".to_string() });
         }
     };
-    return print_exec_result(context.eval(&mut TerminalReceiver));
-}
-
-fn print_exec_result(result: Result<Value, Vec<stateless::Error>>) -> Result<(), QsError> {
+    let mut rec = ExecutionState::default();
+    let result = context.eval(&mut rec);
     match result {
         Ok(value) => {
             println!("{value}");
-            return Ok(());
+            return Ok(rec);
         }
         Err(errors) => {
             for error in errors {
@@ -63,30 +61,42 @@ fn print_exec_result(result: Result<Value, Vec<stateless::Error>>) -> Result<(),
                 }
                 eprintln!("error: {error:?}");
             }
-            return Err(QsError::ErrorMessage { error_text: "error".to_string() });
+            return Err(QsError::ErrorMessage { error_text: "execution error".to_string() });
         }
     }
 }
 
-struct TerminalReceiver;
 
-impl Receiver for TerminalReceiver {
+struct ExecutionState {
+    states: Vec<(BigUint, Complex64)>,
+    qubit_count: usize,
+    messages: Vec<String>,
+}
+
+impl Default for ExecutionState {
+    fn default() -> Self {
+        Self {
+            states: Vec::new(),
+            qubit_count: 0,
+            messages: Vec::new(),
+        }
+    }
+}
+
+impl Receiver for ExecutionState {
     fn state(
         &mut self,
         states: Vec<(BigUint, Complex64)>,
         qubit_count: usize,
     ) -> Result<(), output::Error> {
-        println!("DumpMachine:");
-        for (qubit, amplitude) in states {
-            let id = output::format_state_id(&qubit, qubit_count);
-            println!("{id}: [{}, {}]", amplitude.re, amplitude.im);
-        }
+        self.qubit_count = qubit_count;
+        self.states = states;
 
         Ok(())
     }
 
     fn message(&mut self, msg: &str) -> Result<(), output::Error> {
-        println!("{msg}");
+        self.messages.push(msg.to_string());
         Ok(())
     }
 }
@@ -100,5 +110,8 @@ fn test_run() {
             Message(\"Hello\");
         }
     }";
-    let _ = run_qs(source);
+    let result = run_qs(source).unwrap();
+
+    assert_eq!(result.messages.len(), 1);
+    assert_eq!(result.messages[0], "Hello");
 }
