@@ -104,6 +104,16 @@ fn test_hello() {
 }
 
 #[test]
+fn test_entanglement() {
+    let source = std::fs::read_to_string("tests/assets/entanglement.qs").unwrap();
+    let result = run_qs(&source).unwrap();
+
+    assert_eq!(result.messages.len(), 0);
+    assert_eq!(result.qubit_count, 2);
+    assert_eq!(result.states.len(), 2);
+}
+
+#[test]
 fn test_teleportation() {
     let source = std::fs::read_to_string("tests/assets/teleportation.qs").unwrap();
     let result = run_qs(&source).unwrap();
