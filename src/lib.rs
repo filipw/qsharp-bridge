@@ -14,35 +14,31 @@ pub enum QsError {
     ErrorMessage { error_text: String }
 }
 
+impl From<Vec<stateless::Error>> for QsError {
+    fn from(errors: Vec<stateless::Error>) -> Self {
+        let mut error_message = String::new();
+
+        for error in errors {
+            if let Some(stack_trace) = error.stack_trace() {
+                error_message.push_str(&format!("Stack trace: {}", stack_trace));
+            }
+
+            error_message.push_str(&format!(", error: {:?}", error));
+        }
+
+        QsError::ErrorMessage { error_text: error_message }
+    }
+}
+
 pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
 
-    let context = match stateless::Context::new(true, source_map) {
-        Ok(context) => context,
-        Err(errors) => {
-            for error in errors {
-                eprintln!("error: {:?}", error);
-            }
-            return Err(QsError::ErrorMessage { error_text: "context error".to_string() });
-        }
-    };
+    let context = stateless::Context::new(true, source_map)?;
     let mut rec = ExecutionState::default();
-    let result = context.eval(&mut rec);
-    match result {
-        Ok(value) => {
-            println!("{value}");
-            return Ok(rec);
-        }
-        Err(errors) => {
-            for error in errors {
-                if let Some(stack_trace) = error.stack_trace() {
-                    eprintln!("{stack_trace}");
-                }
-                eprintln!("error: {error:?}");
-            }
-            return Err(QsError::ErrorMessage { error_text: "execution error".to_string() });
-        }
-    }
+    let result = context.eval(&mut rec)?;
+
+    rec.set_result(result.to_string());
+    return Ok(rec);
 }
 
 pub struct QubitState {
@@ -55,6 +51,14 @@ pub struct ExecutionState {
     states: Vec<QubitState>,
     qubit_count: u64,
     messages: Vec<String>,
+    result: Option<String>,
+}
+
+impl ExecutionState {
+    // Add a function to set the result
+    fn set_result(&mut self, result: String) {
+        self.result = Some(result);
+    }
 }
 
 impl Default for ExecutionState {
@@ -63,6 +67,7 @@ impl Default for ExecutionState {
             states: Vec::new(),
             qubit_count: 0,
             messages: Vec::new(),
+            result: None,
         }
     }
 }

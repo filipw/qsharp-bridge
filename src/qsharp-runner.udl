@@ -13,6 +13,7 @@ dictionary ExecutionState {
     sequence<QubitState> states;
     u64 qubit_count;
     sequence<string> messages;
+    string? result;
 };
 
 dictionary QubitState {
