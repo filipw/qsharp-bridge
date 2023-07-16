@@ -2,11 +2,10 @@ uniffi::include_scaffolding!("qsharp-runner");
 
 use thiserror::Error;
 use num_bigint::BigUint;
-use num_complex::{Complex64, ComplexFloat};
+use num_complex::Complex64;
 use qsc::interpret::output::Receiver;
-use qsc::interpret::{stateless, output, Value};
-use qsc::{PackageStore, SourceMap, hir::PackageId};
-use qsc::compile::{compile};
+use qsc::interpret::{stateless, output};
+use qsc::{PackageStore, SourceMap};
 
 #[derive(Error, Debug)]
 pub enum QsError {
@@ -40,7 +39,7 @@ pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     return Ok(rec);
 }
 
-pub fn run_qs_shots(source: &str, shots: usize) -> Result<Vec<ExecutionState>, QsError> {
+pub fn run_qs_shots(source: &str, shots: u64) -> Result<Vec<ExecutionState>, QsError> {
     let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
     let context = stateless::Context::new(true, source_map)?;
     let mut results: Vec<ExecutionState> = Vec::new();

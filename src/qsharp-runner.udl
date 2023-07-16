@@ -2,6 +2,9 @@ namespace qsharp_runner {
 
     [Throws=QsError]
     ExecutionState run_qs([ByRef]string source);
+
+    [Throws=QsError]
+    sequence<ExecutionState> run_qs_shots([ByRef]string source, u64 shots);
 };
 
 [Error]
