@@ -106,6 +106,10 @@ fn test_hello() {
 
     assert_eq!(result.qubit_count, 0);
     assert_eq!(result.states.len(), 0);
+
+    assert!(result.result.is_some());
+    let result_str = result.result.unwrap();
+    assert_eq!(result_str, "()");
 }
 
 #[test]
@@ -116,6 +120,11 @@ fn test_entanglement() {
     assert_eq!(result.messages.len(), 0);
     assert_eq!(result.qubit_count, 2);
     assert_eq!(result.states.len(), 2);
+
+    assert!(result.result.is_some());
+
+    let result_str = result.result.unwrap();
+    assert!(result_str == "(One, One)" || result_str == "(Zero, Zero)", "Unexpected result: {}", result_str);
 }
 
 #[test]
@@ -128,4 +137,8 @@ fn test_teleportation() {
 
     assert_eq!(result.qubit_count, 0);
     assert_eq!(result.states.len(), 0);
+
+    assert!(result.result.is_some());
+    let result_str = result.result.unwrap();
+    assert_eq!(result_str, "true");
 }
