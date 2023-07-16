@@ -2,7 +2,7 @@ uniffi::include_scaffolding!("qsharp-runner");
 
 use thiserror::Error;
 use num_bigint::BigUint;
-use num_complex::Complex64;
+use num_complex::{Complex64, ComplexFloat};
 use qsc::interpret::output::Receiver;
 use qsc::interpret::{stateless, output, Value};
 use qsc::{PackageStore, SourceMap, hir::PackageId};
@@ -32,13 +32,27 @@ impl From<Vec<stateless::Error>> for QsError {
 
 pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
     let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
-
     let context = stateless::Context::new(true, source_map)?;
     let mut rec = ExecutionState::default();
     let result = context.eval(&mut rec)?;
 
     rec.set_result(result.to_string());
     return Ok(rec);
+}
+
+pub fn run_qs_shots(source: &str, shots: usize) -> Result<Vec<ExecutionState>, QsError> {
+    let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
+    let context = stateless::Context::new(true, source_map)?;
+    let mut results: Vec<ExecutionState> = Vec::new();
+
+    for _ in 0..shots {
+        let mut rec = ExecutionState::default();
+        let result = context.eval(&mut rec)?;
+        rec.set_result(result.to_string());
+        results.push(rec)
+    }
+
+    return Ok(results);
 }
 
 pub struct QubitState {
@@ -108,8 +122,25 @@ fn test_hello() {
     assert_eq!(result.states.len(), 0);
 
     assert!(result.result.is_some());
-    let result_str = result.result.unwrap();
-    assert_eq!(result_str, "()");
+    assert_eq!(result.result, Some("()".into()));
+}
+
+#[test]
+fn test_hello_shots() {
+    let source = std::fs::read_to_string("tests/assets/hello.qs").unwrap();
+    let result = run_qs_shots(&source, 100).unwrap();
+
+    assert_eq!(result.len(), 100);
+    for res in &result {
+        assert_eq!(res.messages.len(), 1);
+        assert_eq!(res.messages[0], "Hello");
+    
+        assert_eq!(res.qubit_count, 0);
+        assert_eq!(res.states.len(), 0);
+    
+        assert!(res.result.is_some());
+        assert_eq!(res.result, Some("()".into()));
+    }
 }
 
 #[test]
@@ -128,6 +159,24 @@ fn test_entanglement() {
 }
 
 #[test]
+fn test_entanglement_shots() {
+    let source = std::fs::read_to_string("tests/assets/entanglement.qs").unwrap();
+    let result = run_qs_shots(&source, 100).unwrap();
+
+    assert_eq!(result.len(), 100);
+
+    for res in &result {
+        assert_eq!(res.messages.len(), 0);
+        assert_eq!(res.qubit_count, 2);
+        assert_eq!(res.states.len(), 2);
+
+        assert!(res.result.is_some());
+
+        assert!(res.result == Some("(One, One)".into()) || res.result == Some("(Zero, Zero)".into()));
+    }
+}
+
+#[test]
 fn test_teleportation() {
     let source = std::fs::read_to_string("tests/assets/teleportation.qs").unwrap();
     let result = run_qs(&source).unwrap();
@@ -138,7 +187,24 @@ fn test_teleportation() {
     assert_eq!(result.qubit_count, 0);
     assert_eq!(result.states.len(), 0);
 
-    assert!(result.result.is_some());
-    let result_str = result.result.unwrap();
-    assert_eq!(result_str, "true");
+    assert_eq!(result.result, Some("true".into()));
+}
+
+#[test]
+fn test_teleportation_shots() {
+    let source = std::fs::read_to_string("tests/assets/teleportation.qs").unwrap();
+    let result = run_qs_shots(&source, 100).unwrap();
+
+    assert_eq!(result.len(), 100);
+
+    for inner_result in &result {
+
+        assert_eq!(inner_result.messages.len(), 1);
+        assert_eq!(inner_result.messages[0], "Teleported: true");
+
+        assert_eq!(inner_result.qubit_count, 0);
+        assert_eq!(inner_result.states.len(), 0);
+
+        assert_eq!(inner_result.result, Some("true".into()));
+    }
 }
