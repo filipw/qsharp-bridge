@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NativeOutputPath>../../target/$(Configuration.ToLowerInvariant())/</NativeOutputPath>
+    <NativeOutputPath>../../../target/$(Configuration.ToLowerInvariant())/</NativeOutputPath>
   </PropertyGroup>
 
 <ItemGroup>
@@ -16,7 +16,7 @@
 </ItemGroup>
 
 <ItemGroup>
-  <Compile Include="..\..\bindings\qsharp_bridge.cs" Link="qsharp_bridge.cs" />
+  <Compile Include="..\..\..\bindings\qsharp_bridge.cs" Link="qsharp_bridge.cs" />
 </ItemGroup>
 
 </Project>
