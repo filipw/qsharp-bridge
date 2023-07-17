@@ -1,4 +1,4 @@
-uniffi::include_scaffolding!("qsharp-runner");
+uniffi::include_scaffolding!("qsharp-bridge");
 
 use thiserror::Error;
 use num_bigint::BigUint;
@@ -68,7 +68,6 @@ pub struct ExecutionState {
 }
 
 impl ExecutionState {
-    // Add a function to set the result
     fn set_result(&mut self, result: String) {
         self.result = Some(result);
     }

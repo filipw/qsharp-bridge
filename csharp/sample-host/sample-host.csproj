@@ -10,13 +10,13 @@
   </PropertyGroup>
 
 <ItemGroup>
-    <None Condition="$([MSBuild]::IsOsPlatform('MacOS'))" Include="$(NativeOutputPath)libqsharp_runner.dylib" CopyToOutputDirectory="PreserveNewest" />
-    <None Condition="$([MSBuild]::IsOsPlatform('Linux'))" Include="$(NativeOutputPath)libqsharp_runner.so" CopyToOutputDirectory="PreserveNewest" />
-    <None Condition="$([MSBuild]::IsOsPlatform('Windows'))" Include="$(NativeOutputPath)qsharp_runner.dll" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="$([MSBuild]::IsOsPlatform('MacOS'))" Include="$(NativeOutputPath)libqsharp_bridge.dylib" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="$([MSBuild]::IsOsPlatform('Linux'))" Include="$(NativeOutputPath)libqsharp_bridge.so" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="$([MSBuild]::IsOsPlatform('Windows'))" Include="$(NativeOutputPath)qsharp_bridge.dll" CopyToOutputDirectory="PreserveNewest" />
 </ItemGroup>
 
 <ItemGroup>
-  <Compile Include="..\..\bindings\qsharp_runner.cs" Link="qsharp_runner.cs" />
+  <Compile Include="..\..\bindings\qsharp_bridge.cs" Link="qsharp_bridge.cs" />
 </ItemGroup>
 
 </Project>

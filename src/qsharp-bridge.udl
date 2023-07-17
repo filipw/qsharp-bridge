@@ -1,4 +1,4 @@
-namespace qsharp_runner {
+namespace qsharp_bridge {
 
     [Throws=QsError]
     ExecutionState run_qs([ByRef]string source);

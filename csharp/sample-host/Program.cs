@@ -1,4 +1,4 @@
-﻿using uniffi.qsharp_runner;
+﻿using uniffi.qsharp_bridge;
 
 var qsharpSource = """
 namespace MyQuantumApp {
@@ -9,14 +9,14 @@ namespace MyQuantumApp {
 }
 """;
 
-var result = QsharpRunnerMethods.RunQs(qsharpSource);
+var result = QsharpBridgeMethods.RunQs(qsharpSource);
 PrintOutcome(result);
 
 Console.WriteLine();
 Console.WriteLine();
 
 Console.WriteLine("Shots: 10");
-var resultShots = QsharpRunnerMethods.RunQsShots(qsharpSource, 10);
+var resultShots = QsharpBridgeMethods.RunQsShots(qsharpSource, 10);
 foreach (var innerResult in resultShots) {
     PrintOutcome(innerResult);
 }
