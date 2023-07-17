@@ -14,6 +14,8 @@
 		F08CEBF62A6510A4003B3B88 /* qsharp_bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBF32A6510A4003B3B88 /* qsharp_bridge.swift */; };
 		F08CEBF82A6510FB003B3B88 /* qsharp_bridgeFFI.h in Headers */ = {isa = PBXBuildFile; fileRef = F08CEBF42A6510A4003B3B88 /* qsharp_bridgeFFI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F08CEBFB2A651298003B3B88 /* libqsharp_bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F08CEBFA2A651281003B3B88 /* libqsharp_bridge.a */; };
+		F08CEBFE2A652929003B3B88 /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = F08CEBFD2A652929003B3B88 /* CodeEditorView */; };
+		F08CEC002A652929003B3B88 /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F08CEBFF2A652929003B3B88 /* LanguageSupport */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F08CEBFB2A651298003B3B88 /* libqsharp_bridge.a in Frameworks */,
+				F08CEC002A652929003B3B88 /* LanguageSupport in Frameworks */,
+				F08CEBFE2A652929003B3B88 /* CodeEditorView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +119,10 @@
 			dependencies = (
 			);
 			name = "strathweb.qsharp-bridge.sample";
+			packageProductDependencies = (
+				F08CEBFD2A652929003B3B88 /* CodeEditorView */,
+				F08CEBFF2A652929003B3B88 /* LanguageSupport */,
+			);
 			productName = "strathweb.qsharp-bridge.sample";
 			productReference = F08CEBE22A651081003B3B88 /* strathweb.qsharp-bridge.sample.app */;
 			productType = "com.apple.product-type.application";
@@ -143,6 +151,9 @@
 				Base,
 			);
 			mainGroup = F08CEBD92A651081003B3B88;
+			packageReferences = (
+				F08CEBFC2A652929003B3B88 /* XCRemoteSwiftPackageReference "CodeEditorView" */,
+			);
 			productRefGroup = F08CEBE32A651081003B3B88 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -374,6 +385,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F08CEBFC2A652929003B3B88 /* XCRemoteSwiftPackageReference "CodeEditorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mchakravarty/CodeEditorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F08CEBFD2A652929003B3B88 /* CodeEditorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08CEBFC2A652929003B3B88 /* XCRemoteSwiftPackageReference "CodeEditorView" */;
+			productName = CodeEditorView;
+		};
+		F08CEBFF2A652929003B3B88 /* LanguageSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08CEBFC2A652929003B3B88 /* XCRemoteSwiftPackageReference "CodeEditorView" */;
+			productName = LanguageSupport;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F08CEBDA2A651081003B3B88 /* Project object */;
 }
