@@ -34,11 +34,14 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct SinglePanelView: View {
+    @State private var shots = 1.0
+    @State private var isEditing = false
     @State var code: String
     @State private var position = CodeEditor.Position()
     @State private var messages: Set<Located<Message>> = Set()
     @State private var showMinimap = true
     @State private var wrapText = true
+    @State private var isPlaying = false
     
     @State var executionState : ExecutionState?
     
@@ -48,11 +51,26 @@ struct SinglePanelView: View {
                 CodeEditor(text: $code, position: $position, messages: $messages, layout: CodeEditor.LayoutConfiguration(showMinimap: showMinimap, wrapText: wrapText)).frame(height: geometry.size.height / 2)
                 
                 Divider()
+                HStack {
+                    Text("Shots: \(Int(shots))")
+                        .frame(width: 100, alignment: .leading)
+                        .foregroundColor(isEditing ? .red : .blue)
+                    
+                    Slider(value: $shots,
+                                in: 1...1000,
+                                onEditingChanged: { editing in
+                                    isEditing = editing
+                                }
+                            )
+                }
+                
                 Button(action: {
                     executionState = try! runQs(source: code)
                 }, label: {
+                    Image(systemName: "play.fill")
                     Text("Run code!")
                 }).padding()
+                
                 
                 if let result = executionState {
                     ForEach(result.messages, id: \.self) { element in
