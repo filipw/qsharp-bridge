@@ -13,7 +13,7 @@ struct ContentView: View {
             VStack {
                 Text("Choose a sample").font(.title2)
                 List(Samples.data) { item in
-                    NavigationLink(destination: SinglePanelView(code: item.code)
+                    NavigationLink(destination: SinglePanelView(code: item.code, title: item.name)
                     ) {
                         Text(item.name)
                     }
