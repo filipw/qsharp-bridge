@@ -41,16 +41,10 @@ struct ExecutionResultView: View {
                 Spacer()
             }
             
+            Divider().padding(.leading, 50).padding(.trailing, 50)
             if executionStates.indices.contains(currentIndex - 1) {
                 SingleShotView(executionState: executionStates[currentIndex - 1])
             }
-//            ForEach(executionStates) { result in
-//                Text(result.result ?? "None")
-//                ForEach(result.messages, id: \.self) { element in
-//                    Text(element).background(Color.yellow)
-//
-//                }.padding()
-//            }
         }
     }
     
@@ -68,9 +62,20 @@ struct SingleShotView: View {
     
     var body: some View {
         HStack {
+            
             VStack(alignment: .leading) {
-                Text(executionState.result ?? "None").font(.caption).padding()
+                
+                Label {
+                    Text("Return".uppercased()).font(.caption)
+                } icon: {
+                    Image(systemName: "doc.badge.gearshape")
+                }
+                
+                Text(toKetIfPossible(input: executionState.result)).font(.title).padding()
+                
                 Spacer()
+                
+                
             }
             Divider()
             VStack {
@@ -80,20 +85,33 @@ struct SingleShotView: View {
                 Spacer()
             }
         }.padding()
+    }
+    
+    func toKetIfPossible(input: String?) -> String {
+        if var result = input {
+            if result == "Zero" { result = "|0⟩" }
+            if result == "One" { result = "|1⟩" }
+
+            result = result.replacingOccurrences(of: "(", with: "|")
+            result = result.replacingOccurrences(of: "[", with: "|")
+            result = result.replacingOccurrences(of: ")", with: "⟩")
+            result = result.replacingOccurrences(of: "]", with: "⟩")
+            result = result.replacingOccurrences(of: " ", with: "")
+            result = result.replacingOccurrences(of: ",", with: "")
+            result = result.replacingOccurrences(of: "Zero", with: "0")
+            result = result.replacingOccurrences(of: "One", with: "1")
+            
+            return result
+        }
         
-//        VStack {
-//            Text(executionState.result ?? "None").font(.caption).padding()
-//            ForEach(executionState.messages, id: \.self) { element in
-//                Text(element).background(Color.yellow)
-//            }
-//        }
+        return "None"
     }
 }
 
-//struct ExecutionResultView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExecutionResultView(executionStates: [
-//            ExecutionState(states: [], qubitCount: 0, messages: ["foo", "bar"], result: "(One, One)")
-//        ])
-//    }
-//}
+struct ExecutionResultView_Previews: PreviewProvider {
+    @State static var executionStates = [ExecutionState(states: [], qubitCount: 0, messages: ["foo", "bar"], result: "(One, One)")]
+    
+    static var previews: some View {
+        ExecutionResultView(executionStates: $executionStates)
+    }
+}
