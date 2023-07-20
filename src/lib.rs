@@ -5,7 +5,7 @@ use num_bigint::BigUint;
 use num_complex::Complex64;
 use qsc::interpret::output::Receiver;
 use qsc::interpret::{stateless, output};
-use qsc::{PackageStore, SourceMap};
+use qsc::SourceMap;
 
 #[derive(Error, Debug)]
 pub enum QsError {
