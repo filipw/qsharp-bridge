@@ -10,8 +10,8 @@
 		F08988842A66E22E0062BB8E /* SinglePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08988832A66E22E0062BB8E /* SinglePanelView.swift */; };
 		F08988862A66E2F50062BB8E /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08988852A66E2F50062BB8E /* Data.swift */; };
 		F08988882A671E170062BB8E /* ExecutionResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08988872A671E170062BB8E /* ExecutionResultView.swift */; };
-		F089888B2A69BAB10062BB8E /* qsharp_bridge_framework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F08988892A69BAB10062BB8E /* qsharp_bridge_framework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F089888D2A69BABA0062BB8E /* qsharp_bridge_framework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08988892A69BAB10062BB8E /* qsharp_bridge_framework.xcframework */; };
+		F08988BE2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */; };
+		F08988BF2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F08CEBE62A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBE52A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift */; };
 		F08CEBE82A651081003B3B88 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBE72A651081003B3B88 /* ContentView.swift */; };
 		F08CEBEA2A651081003B3B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F08CEBE92A651081003B3B88 /* Assets.xcassets */; };
@@ -28,7 +28,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F089888B2A69BAB10062BB8E /* qsharp_bridge_framework.xcframework in Embed Frameworks */,
+				F08988BF2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,7 +39,7 @@
 		F08988832A66E22E0062BB8E /* SinglePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePanelView.swift; sourceTree = "<group>"; };
 		F08988852A66E2F50062BB8E /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		F08988872A671E170062BB8E /* ExecutionResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionResultView.swift; sourceTree = "<group>"; };
-		F08988892A69BAB10062BB8E /* qsharp_bridge_framework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = qsharp_bridge_framework.xcframework; path = ../qsharp_bridge_framework.xcframework; sourceTree = "<group>"; };
+		F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = qsharp_bridge_framework.xcframework; path = ../qsharp_bridge_framework.xcframework; sourceTree = "<group>"; };
 		F08CEBE22A651081003B3B88 /* strathweb.qsharp-bridge.sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "strathweb.qsharp-bridge.sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F08CEBE52A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = strathweb_qsharp_bridge_sampleApp.swift; sourceTree = "<group>"; };
 		F08CEBE72A651081003B3B88 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			files = (
 				F08CEC002A652929003B3B88 /* LanguageSupport in Frameworks */,
 				F08CEBFE2A652929003B3B88 /* CodeEditorView in Frameworks */,
-				F089888D2A69BABA0062BB8E /* qsharp_bridge_framework.xcframework in Frameworks */,
+				F08988BE2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,29 +105,18 @@
 		F08CEBF92A651281003B3B88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F08988892A69BAB10062BB8E /* qsharp_bridge_framework.xcframework */,
+				F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		F08CEBF72A6510F4003B3B88 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		F08CEBE12A651081003B3B88 /* strathweb.qsharp-bridge.sample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F08CEBF02A651081003B3B88 /* Build configuration list for PBXNativeTarget "strathweb.qsharp-bridge.sample" */;
 			buildPhases = (
-				F08CEBF72A6510F4003B3B88 /* Headers */,
 				F08CEBDE2A651081003B3B88 /* Sources */,
 				F08CEBDF2A651081003B3B88 /* Frameworks */,
 				F08CEBE02A651081003B3B88 /* Resources */,
@@ -334,6 +323,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"strathweb.qsharp-bridge.sample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -349,7 +339,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "strathweb.strathweb-qsharp-bridge-sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = ../../../bindings/qsharp_bridgeFFI.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +354,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"strathweb.qsharp-bridge.sample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -379,7 +370,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "strathweb.strathweb-qsharp-bridge-sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = ../../../bindings/qsharp_bridgeFFI.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
