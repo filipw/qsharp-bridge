@@ -62,7 +62,7 @@ struct SinglePanelView: View {
                 
                 Divider()
                 
-                CodeEditor(text: $code, position: $position, messages: $messages, layout: CodeEditor.LayoutConfiguration(showMinimap: showMinimap, wrapText: wrapText)).frame(height: 450)
+                CodeEditor(text: $code, position: $position, messages: $messages, layout: CodeEditor.LayoutConfiguration(showMinimap: showMinimap, wrapText: wrapText)).frame(height: 300)
                 
                 Divider()
                 
@@ -80,7 +80,7 @@ struct SinglePanelView: View {
 struct SinglePanelView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SinglePanelView(code: Samples.data[1].code, title: Samples.data[1].name)
+            SinglePanelView(code: Samples.data[0].code, title: Samples.data[0].name)
         }
     }
 }

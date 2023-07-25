@@ -15,10 +15,13 @@ struct ContentView: View {
                 List(Samples.data) { item in
                     NavigationLink(destination: SinglePanelView(code: item.code, title: item.name)
                     ) {
-                        Text(item.name)
+                        HStack {
+                            Image(systemName: "doc.plaintext")
+                            Text(item.name)
+                        }
                     }
-                }.listStyle(.sidebar)
-            }
+                }.listStyle(.plain)
+            }.padding()
         }
     }
 }
