@@ -12,8 +12,10 @@
 		F08988882A671E170062BB8E /* ExecutionResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08988872A671E170062BB8E /* ExecutionResultView.swift */; };
 		F08988BE2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */; };
 		F08988BF2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F08988C12A718FF30062BB8E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08988C02A718FF30062BB8E /* MainView.swift */; };
+		F08988C32A7192D80062BB8E /* DifficultyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08988C22A7192D80062BB8E /* DifficultyView.swift */; };
 		F08CEBE62A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBE52A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift */; };
-		F08CEBE82A651081003B3B88 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBE72A651081003B3B88 /* ContentView.swift */; };
+		F08CEBE82A651081003B3B88 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBE72A651081003B3B88 /* ExploreView.swift */; };
 		F08CEBEA2A651081003B3B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F08CEBE92A651081003B3B88 /* Assets.xcassets */; };
 		F08CEBED2A651081003B3B88 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F08CEBEC2A651081003B3B88 /* Preview Assets.xcassets */; };
 		F08CEBF62A6510A4003B3B88 /* qsharp_bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CEBF32A6510A4003B3B88 /* qsharp_bridge.swift */; };
@@ -40,9 +42,11 @@
 		F08988852A66E2F50062BB8E /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		F08988872A671E170062BB8E /* ExecutionResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionResultView.swift; sourceTree = "<group>"; };
 		F08988BD2A6E9B370062BB8E /* qsharp_bridge_framework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = qsharp_bridge_framework.xcframework; path = ../qsharp_bridge_framework.xcframework; sourceTree = "<group>"; };
+		F08988C02A718FF30062BB8E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F08988C22A7192D80062BB8E /* DifficultyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyView.swift; sourceTree = "<group>"; };
 		F08CEBE22A651081003B3B88 /* strathweb.qsharp-bridge.sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "strathweb.qsharp-bridge.sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F08CEBE52A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = strathweb_qsharp_bridge_sampleApp.swift; sourceTree = "<group>"; };
-		F08CEBE72A651081003B3B88 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F08CEBE72A651081003B3B88 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		F08CEBE92A651081003B3B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F08CEBEC2A651081003B3B88 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F08CEBF32A6510A4003B3B88 /* qsharp_bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = qsharp_bridge.swift; path = ../../../../bindings/qsharp_bridge.swift; sourceTree = "<group>"; };
@@ -84,12 +88,14 @@
 			children = (
 				F08CEBF32A6510A4003B3B88 /* qsharp_bridge.swift */,
 				F08CEBE52A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift */,
-				F08CEBE72A651081003B3B88 /* ContentView.swift */,
+				F08CEBE72A651081003B3B88 /* ExploreView.swift */,
 				F08CEBE92A651081003B3B88 /* Assets.xcassets */,
 				F08CEBEB2A651081003B3B88 /* Preview Content */,
 				F08988832A66E22E0062BB8E /* SinglePanelView.swift */,
 				F08988852A66E2F50062BB8E /* Data.swift */,
 				F08988872A671E170062BB8E /* ExecutionResultView.swift */,
+				F08988C02A718FF30062BB8E /* MainView.swift */,
+				F08988C22A7192D80062BB8E /* DifficultyView.swift */,
 			);
 			path = "strathweb.qsharp-bridge.sample";
 			sourceTree = "<group>";
@@ -189,9 +195,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F08988882A671E170062BB8E /* ExecutionResultView.swift in Sources */,
-				F08CEBE82A651081003B3B88 /* ContentView.swift in Sources */,
+				F08988C12A718FF30062BB8E /* MainView.swift in Sources */,
+				F08CEBE82A651081003B3B88 /* ExploreView.swift in Sources */,
 				F08988862A66E2F50062BB8E /* Data.swift in Sources */,
 				F08CEBF62A6510A4003B3B88 /* qsharp_bridge.swift in Sources */,
+				F08988C32A7192D80062BB8E /* DifficultyView.swift in Sources */,
 				F08988842A66E22E0062BB8E /* SinglePanelView.swift in Sources */,
 				F08CEBE62A651081003B3B88 /* strathweb_qsharp_bridge_sampleApp.swift in Sources */,
 			);

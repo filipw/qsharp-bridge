@@ -11,6 +11,7 @@ struct Sample : Identifiable {
     let id = UUID()
     let name: String
     let code: String
+    let difficulty: Int16
 }
 
 struct Samples {
@@ -22,7 +23,7 @@ namespace MyQuantumApp {
         Message("Hello");
     }
 }
-"""),
+""", difficulty: 1),
         Sample(name: "entanglement.qs", code: """
 namespace Demos {
 
@@ -44,7 +45,7 @@ namespace Demos {
         return (resultControl, resultTarget);
     }
 }
-"""),
+""", difficulty: 2),
         Sample(name: "teleportation.qs", code: """
 namespace teleportation {
 
@@ -107,6 +108,6 @@ namespace teleportation {
         }
     }
 }
-""")
+""", difficulty: 3)
     ]
 }

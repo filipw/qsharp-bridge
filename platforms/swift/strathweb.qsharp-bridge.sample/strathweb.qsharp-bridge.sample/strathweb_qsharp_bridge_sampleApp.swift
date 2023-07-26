@@ -11,7 +11,7 @@ import SwiftUI
 struct strathweb_qsharp_bridge_sampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }

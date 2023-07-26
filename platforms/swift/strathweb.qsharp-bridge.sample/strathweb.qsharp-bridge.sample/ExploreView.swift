@@ -7,27 +7,30 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ExploreView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Choose a sample").font(.title2)
                 List(Samples.data) { item in
                     NavigationLink(destination: SinglePanelView(code: item.code, title: item.name)
                     ) {
-                        HStack {
-                            Image(systemName: "doc.plaintext")
-                            Text(item.name)
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack {
+                                Image(systemName: "doc.plaintext").foregroundColor(.accentColor)
+                                Text(item.name).font(.headline)
+                            }.padding(.bottom, 5)
+                            DifficultyView(rating: item.difficulty)
                         }
                     }
                 }.listStyle(.plain)
             }.padding()
+                .navigationTitle("Explore")
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ExploreView()
     }
 }

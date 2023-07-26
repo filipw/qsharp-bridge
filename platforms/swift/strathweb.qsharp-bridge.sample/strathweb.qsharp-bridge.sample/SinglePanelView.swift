@@ -28,12 +28,15 @@ struct SinglePanelView: View {
         ScrollView {
             VStack {
                 HStack {
-                    Text("Shots: \(Int(shots))")
-                        .frame(width: 100, alignment: .leading)
-                        .foregroundColor(isEditing ? .red : .blue)
+                    HStack {
+                        Image(systemName: "repeat").foregroundColor(.accentColor)
+                        Text("\(Int(shots))")
+                            .frame(width: 40, alignment: .leading)
+                            .foregroundColor(.accentColor)
+                    }
                     
                     Slider(value: $shots,
-                           in: 1...1000,
+                           in: 1...999,
                            onEditingChanged: { editing in
                         isEditing = editing
                     }
@@ -58,6 +61,7 @@ struct SinglePanelView: View {
                     }, label: {
                         Image(systemName: "play.fill")
                     }).padding()
+                        .foregroundColor(.accentColor)
                 }
                 
                 Divider()
