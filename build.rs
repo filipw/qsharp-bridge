@@ -1,4 +1,4 @@
-use uniffi_bindgen::{generate_bindings};
+use uniffi_bindgen::generate_bindings;
 use std::process::Command;
 
 fn main() {
