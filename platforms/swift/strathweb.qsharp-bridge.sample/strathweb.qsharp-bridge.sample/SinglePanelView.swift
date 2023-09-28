@@ -50,7 +50,7 @@ struct SinglePanelView: View {
                                 showResults = false
                             }
                             
-                            let results = try! runQsShots(source: code, shots: UInt64(shots))
+                            let results = try! runQsShots(source: code, shots: UInt32(shots))
                             print(results.count)
                             
                             DispatchQueue.main.async {
