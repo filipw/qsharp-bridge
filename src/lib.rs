@@ -1,11 +1,12 @@
 uniffi::include_scaffolding!("qsharp-bridge");
 
+use qsc::interpret::stateful::{Interpreter, self};
 use thiserror::Error;
 use num_bigint::BigUint;
 use num_complex::Complex64;
 use qsc::interpret::output::Receiver;
-use qsc::interpret::{stateless, output};
-use qsc::SourceMap;
+use qsc::interpret::{output};
+use qsc::{SourceMap, PackageType, TargetProfile};
 
 #[derive(Error, Debug)]
 pub enum QsError {
@@ -13,8 +14,8 @@ pub enum QsError {
     ErrorMessage { error_text: String }
 }
 
-impl From<Vec<stateless::Error>> for QsError {
-    fn from(errors: Vec<stateless::Error>) -> Self {
+impl From<Vec<stateful::Error>> for QsError {
+    fn from(errors: Vec<stateful::Error>) -> Self {
         let mut error_message = String::new();
 
         for error in errors {
@@ -30,23 +31,47 @@ impl From<Vec<stateless::Error>> for QsError {
 }
 
 pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
-    let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
-    let context = stateless::Context::new(true, source_map)?;
-    let mut rec = ExecutionState::default();
-    let result = context.eval(&mut rec)?;
 
+    let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], None);
+
+    let mut interpreter = match Interpreter::new(
+        true,
+        source_map,
+        PackageType::Exe,
+        TargetProfile::Full,
+    ) {
+        Ok(interpreter) => interpreter,
+        Err(errors) => {
+            return Err(errors.into());
+        }
+    };
+
+    let mut rec = ExecutionState::default();
+    let result = interpreter.eval_entry(&mut rec)?;
     rec.set_result(result.to_string());
     return Ok(rec);
 }
 
-pub fn run_qs_shots(source: &str, shots: u64) -> Result<Vec<ExecutionState>, QsError> {
-    let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], Some("".into()));
-    let context = stateless::Context::new(true, source_map)?;
+pub fn run_qs_shots(source: &str, shots: u32) -> Result<Vec<ExecutionState>, QsError> {
     let mut results: Vec<ExecutionState> = Vec::new();
+
+    let source_map = SourceMap::new(vec![("temp.qs".into(), source.into())], None);
+
+    let mut interpreter = match Interpreter::new(
+        true,
+        source_map,
+        PackageType::Exe,
+        TargetProfile::Full,
+    ) {
+        Ok(interpreter) => interpreter,
+        Err(errors) => {
+            return Err(errors.into());
+        }
+    };
 
     for _ in 0..shots {
         let mut rec = ExecutionState::default();
-        let result = context.eval(&mut rec)?;
+        let result = interpreter.eval_entry(&mut rec)?;
         rec.set_result(result.to_string());
         results.push(rec)
     }
