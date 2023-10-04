@@ -10,21 +10,51 @@ import SwiftUI
 struct ExploreView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                List(Samples.data) { item in
-                    NavigationLink(destination: SinglePanelView(code: item.code, title: item.name)
-                    ) {
-                        VStack(alignment: .leading, spacing: 5) {
-                            HStack {
-                                Image(systemName: "doc.plaintext").foregroundColor(.accentColor)
-                                Text(item.name).font(.headline)
-                            }.padding(.bottom, 5)
-                            DifficultyView(rating: item.difficulty)
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 15)  {
+                    ForEach(Samples.data) { group in
+                        Text(group.name)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding(.leading)
+                            .padding(.bottom, 1)
+                        
+                        Text(group.subtitle)
+                            .font(.caption2)
+                            .padding(.leading)
+                            .padding(.trailing)
+                        
+                        ForEach(group.samples) { item in
+                            NavigationLink(destination: SinglePanelView(code: item.code, title: item.name)) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        HStack {
+                                            Image(systemName: "doc.plaintext")
+                                                .foregroundColor(.accentColor)
+                                            Text(item.name)
+                                                .font(.headline)
+                                        }
+                                        .padding(.bottom, 5)
+                                        
+                                        DifficultyView(rating: item.difficulty)
+                                        
+                                    }
+                                    
+                                    Spacer() // Pushes the arrow to the far right
+                                    Image(systemName: "chevron.right") // Navigation arrow
+                                        .foregroundColor(.gray) // Set color to gray
+                                }
+                                .padding(.horizontal)
+                            }
+                            .buttonStyle(PlainButtonStyle())  // Use this to remove button-like styling
                         }
+                        Divider()  // Optionally add dividers between groups
                     }
-                }.listStyle(.plain)
-            }.padding()
-                .navigationTitle("Explore")
+                }
+            }
+            .padding()
+            .navigationTitle("Explore")
+
         }
     }
 }
