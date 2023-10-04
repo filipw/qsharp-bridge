@@ -37,18 +37,17 @@ struct ExploreView: View {
                                         .padding(.bottom, 5)
                                         
                                         DifficultyView(rating: item.difficulty)
-                                        
                                     }
                                     
-                                    Spacer() // Pushes the arrow to the far right
-                                    Image(systemName: "chevron.right") // Navigation arrow
-                                        .foregroundColor(.gray) // Set color to gray
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
                                 }
                                 .padding(.horizontal)
                             }
-                            .buttonStyle(PlainButtonStyle())  // Use this to remove button-like styling
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        Divider()  // Optionally add dividers between groups
+                        Divider()
                     }
                 }
             }
