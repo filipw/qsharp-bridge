@@ -5,8 +5,8 @@ use thiserror::Error;
 use num_bigint::BigUint;
 use num_complex::Complex64;
 use qsc::interpret::output::Receiver;
-use qsc::interpret::{output};
-use qsc::{SourceMap, PackageType, TargetProfile};
+use qsc::interpret::output;
+use qsc::{SourceMap, PackageType, RuntimeCapabilityFlags};
 
 #[derive(Error, Debug)]
 pub enum QsError {
@@ -38,7 +38,7 @@ pub fn run_qs(source: &str) -> Result<ExecutionState, QsError> {
         true,
         source_map,
         PackageType::Exe,
-        TargetProfile::Full,
+        RuntimeCapabilityFlags::all(),
     ) {
         Ok(interpreter) => interpreter,
         Err(errors) => {
@@ -61,7 +61,7 @@ pub fn run_qs_shots(source: &str, shots: u32) -> Result<Vec<ExecutionState>, QsE
         true,
         source_map,
         PackageType::Exe,
-        TargetProfile::Full,
+        RuntimeCapabilityFlags::all(),
     ) {
         Ok(interpreter) => interpreter,
         Err(errors) => {
